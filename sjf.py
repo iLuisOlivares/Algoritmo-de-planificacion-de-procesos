@@ -9,7 +9,6 @@ def sjf(list, n):
                     if list[i].tiempo_cpu >= list[j].tiempo_cpu and list[j].completed == False and int(list[j].tiempo_llegada) <= time and list[i].tiempo_cpu != list[j].tiempo_cpu:
                         list[i], list[j] = list[j], list[i]
                         count+= 1
-                        print(count, "count", j , i)
                         break
                 
                 if count == 0:
@@ -26,8 +25,20 @@ def sjf(list, n):
 
 def sjf_al(list, n):
     list = sjf(list, n)
+    print("+-----------+-----------+-------+------------+-------+----------+")
+    print("| Nombre    | T llegada | T CPU | T comienzo | T fin | T espera |")
+    print("+-----------+-----------+-------+------------+-------+----------+")
     for proceso in list:
-        proceso.show_all_info()
+        nombre = f"proceso {proceso.nombre}"
+        tiempo_llegada = proceso.tiempo_llegada
+        tiempo_cpu = proceso.tiempo_cpu
+        tiempo_comienzo = proceso.tiempo_comienzo
+        tiempo_fin = proceso.tiempo_fin
+        tiempo_espera = proceso.tiempo_espera
+        cadena = "|{:<11}|{:>11}|{:>7}|{:>12}|{:>7}|{:>10}|".format(nombre, tiempo_llegada, tiempo_cpu, tiempo_comienzo  , tiempo_fin, tiempo_espera)
+        print(cadena)
+        print("+-----------+-----------+-------+------------+-------+----------+")
+     
         
     
     

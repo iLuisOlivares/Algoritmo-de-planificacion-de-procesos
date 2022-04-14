@@ -17,7 +17,7 @@ class Proceso:
     def set_values(self, tiempo_comienzo, tiempo_fin ):
         self.tiempo_comienzo = tiempo_comienzo
         self.tiempo_fin = tiempo_fin
-        self.tiempo_espera =  self.tiempo_comienzo - self.tiempo_llegada
+        self.tiempo_espera =  tiempo_comienzo - self.tiempo_llegada
         
     def show_all_info(self):
         print(f"\nProceso con nombre: {self.nombre}")

@@ -12,12 +12,27 @@ def bubblesort(list):
 def fifo(list):
     # lista_ordenada = sorted(list, key=lambda x: x.tiempo_llegada)
     lista_ordenada = bubblesort(list)
-    time = 0
-    for proceso in lista_ordenada:
+    time = time = min(int(x.tiempo_llegada) for x in list)
+    print("+-----------+-----------+-------+------------+-------+----------+")
+    print("| Nombre    | T llegada | T CPU | T comienzo | T fin | T espera |")
+    print("+-----------+-----------+-------+------------+-------+----------+")
+    for lista in list:
         tiempo_comienzo = time
-        tiempo_fin = time + proceso.tiempo_cpu
-        time = tiempo_fin
-        proceso.set_values(tiempo_comienzo, tiempo_fin)
-        proceso.show_all_info()
+        time = time + lista.tiempo_cpu
+        lista.set_values(tiempo_comienzo, time)
+    list = sorted(list, key=lambda x: x.tiempo_comienzo)
+    for proceso in list:
+        nombre = f"proceso {proceso.nombre}"
+        tiempo_llegada = proceso.tiempo_llegada
+        tiempo_cpu = proceso.tiempo_cpu
+        tiempo_comienzo = proceso.tiempo_comienzo
+        tiempo_fin = proceso.tiempo_fin
+        tiempo_espera = proceso.tiempo_espera
+        cadena = "|{:<11}|{:>11}|{:>7}|{:>12}|{:>7}|{:>10}|".format(nombre, tiempo_llegada, tiempo_cpu, tiempo_comienzo  , tiempo_fin, tiempo_espera)
+        print(cadena)
+        print("+-----------+-----------+-------+------------+-------+----------+")
+
+        
+       
 
     

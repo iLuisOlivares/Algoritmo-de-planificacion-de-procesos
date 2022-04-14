@@ -9,7 +9,6 @@ def prios(list, n):
                     if list[i].prioridad >= list[j].prioridad and list[j].completed == False and int(list[j].tiempo_llegada) <= time and list[i].tiempo_cpu != list[j].tiempo_cpu:
                         list[i], list[j] = list[j], list[i]
                         count+= 1
-                        print(count, "count", j , i)
                         break
                 
                 if count == 0:
@@ -17,7 +16,6 @@ def prios(list, n):
                     time = time + list[i].tiempo_cpu
                     list[i].completed = True
                     procesos_completados += 1 
-                    print(procesos_completados)
                     list[i].set_values(tiempo_comienzo, time)
                 else:
                     break
@@ -26,8 +24,21 @@ def prios(list, n):
 
 def prioridad_al(list, n):
     list = prios(list, n)
+    print("+-----------+-----------+-------+-----------+------------+-------+----------+")
+    print("| Nombre    | T llegada | T CPU | Prioridad | T comienzo | T fin | T espera |")
+    print("+-----------+-----------+-------+-----------+------------+-------+----------+")
     for proceso in list:
-        proceso.show_all_info()
+        nombre = f"proceso {proceso.nombre}"
+        tiempo_llegada = proceso.tiempo_llegada
+        tiempo_cpu = proceso.tiempo_cpu
+        prioridad = proceso.prioridad 
+        tiempo_comienzo = proceso.tiempo_comienzo
+        tiempo_fin = proceso.tiempo_fin
+        tiempo_espera = proceso.tiempo_espera
+        cadena = "|{:<11}|{:>11}|{:>7}|{:>11}|{:>12}|{:>7}|{:>10}|".format(nombre, tiempo_llegada, tiempo_cpu, prioridad, tiempo_comienzo  , tiempo_fin, tiempo_espera)
+        print(cadena)
+        print("+-----------+-----------+-------+-----------+------------+-------+----------+")
+
         
     
     

@@ -18,12 +18,13 @@ from fifo import *
 from sjf import *
 from prioridad import *                
 from prioridad_expropiativo import *    
-from proceso2 import *
+from proceso_expropiativo import *
 
 def main():
     number_processes = int(input("\nDigitar el numero de procesos que interacturan(Min 4 - Max 8): "))
 
     list_procesos = []
+    list_procesos_expropiativos = []
 
     # Creacion de los objetos de la clase Proceso
     for iterador in range(number_processes):
@@ -32,13 +33,14 @@ def main():
         tiempo_llegada = int(input("Digite el tiempo de llegada del proceso: "))
         tiempo_cpu = int(input("Digite el tiempo en cpu del proceso: "))
         prioridad = int(input("Digite la prioridad del proceso: "))
-        list_procesos.append(Proceso2(nombre,tiempo_llegada,tiempo_cpu,prioridad))
+        list_procesos.append(Proceso(nombre,tiempo_llegada,tiempo_cpu,prioridad))
+        list_procesos_expropiativos.append(Proceso_expropiativo(nombre,tiempo_llegada,tiempo_cpu,prioridad))
 
-
-    # fifo(list_procesos)
-    # sjf(list_procesos, number_processes)
-    # prioridad_al(list_procesos, number_processes)
-    prioridad_ex(list_procesos, number_processes)
+    lista_xd = list_procesos.copy()
+    # fifo(list_procesos.copy())
+    # sjf_al(list_procesos.copy(), number_processes)
+    prioridad_al(lista_xd, number_processes)
+    prioridad_ex(list_procesos_expropiativos, number_processes)
 
 
 if __name__ == "__main__":
