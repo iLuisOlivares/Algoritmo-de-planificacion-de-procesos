@@ -1,3 +1,10 @@
+import logging
+import time
+
+
+logging.basicConfig(level=logging.DEBUG, format='%(threadName)s: %(message)s')
+
+
 def prios(list, n):
     procesos_completados = 0
     time = min(int(x.tiempo_llegada) for x in list)
@@ -23,7 +30,10 @@ def prios(list, n):
 
 
 def prioridad_al(list, n):
+    time.sleep(2)
+    print("\n")
     list = prios(list, n)
+    logging.info("\nALGORITMO PRIORIDAD NO EXPROPIATIVO")
     print("+-----------+-----------+-------+-----------+------------+-------+----------+")
     print("| Nombre    | T llegada | T CPU | Prioridad | T comienzo | T fin | T espera |")
     print("+-----------+-----------+-------+-----------+------------+-------+----------+")

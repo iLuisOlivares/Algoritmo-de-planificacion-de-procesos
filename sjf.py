@@ -1,3 +1,10 @@
+import logging
+import time
+
+
+logging.basicConfig(level=logging.DEBUG, format='%(threadName)s: %(message)s')
+
+
 def sjf(list, n):
     procesos_completados = 0
     time = min(int(x.tiempo_llegada) for x in list)
@@ -16,7 +23,6 @@ def sjf(list, n):
                     time = time + list[i].tiempo_cpu
                     list[i].completed = True
                     procesos_completados += 1 
-                    print(procesos_completados)
                     list[i].set_values(tiempo_comienzo, time)
                 else:
                     break
@@ -24,7 +30,10 @@ def sjf(list, n):
 
 
 def sjf_al(list, n):
+    time.sleep(1)
+    print("\n")
     list = sjf(list, n)
+    logging.info("\nALGORITMO SJF")
     print("+-----------+-----------+-------+------------+-------+----------+")
     print("| Nombre    | T llegada | T CPU | T comienzo | T fin | T espera |")
     print("+-----------+-----------+-------+------------+-------+----------+")

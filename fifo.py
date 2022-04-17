@@ -1,3 +1,7 @@
+import time
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(threadName)s: %(message)s')
 
 def bubblesort(list):
     intercambio = True
@@ -10,9 +14,11 @@ def bubblesort(list):
     return list
 
 def fifo(list):
+    print("\n")
     # lista_ordenada = sorted(list, key=lambda x: x.tiempo_llegada)
     lista_ordenada = bubblesort(list)
     time = time = min(int(x.tiempo_llegada) for x in list)
+    logging.info("\nALGORITMO FIFO")
     print("+-----------+-----------+-------+------------+-------+----------+")
     print("| Nombre    | T llegada | T CPU | T comienzo | T fin | T espera |")
     print("+-----------+-----------+-------+------------+-------+----------+")

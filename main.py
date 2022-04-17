@@ -19,11 +19,17 @@ from sjf import *
 from prioridad import *                
 from prioridad_expropiativo import *    
 from proceso_expropiativo import *
+import logging
+
+from concurrent.futures import ThreadPoolExecutor
+
+logging.basicConfig(level=logging.DEBUG, format='%(threadName)s: %(message)s')
 
 def main():
     number_processes = int(input("\nDigitar el numero de procesos que interacturan(Min 4 - Max 8): "))
 
     list_procesos = []
+    list_procesos2 = []
     list_procesos_expropiativos = []
 
     # Creacion de los objetos de la clase Proceso
@@ -34,13 +40,20 @@ def main():
         tiempo_cpu = int(input("Digite el tiempo en cpu del proceso: "))
         prioridad = int(input("Digite la prioridad del proceso: "))
         list_procesos.append(Proceso(nombre,tiempo_llegada,tiempo_cpu,prioridad))
+        list_procesos2.append(Proceso(nombre,tiempo_llegada,tiempo_cpu,prioridad))
         list_procesos_expropiativos.append(Proceso_expropiativo(nombre,tiempo_llegada,tiempo_cpu,prioridad))
 
-    lista_xd = list_procesos.copy()
-    # fifo(list_procesos.copy())
-    # sjf_al(list_procesos.copy(), number_processes)
-    prioridad_al(lista_xd, number_processes)
-    prioridad_ex(list_procesos_expropiativos, number_processes)
+    executor = ThreadPoolExecutor(max_workers=2)
+
+    executor.submit(fifo, list_procesos)
+    executor.submit(sjf_al, list_procesos, number_processes)
+    executor.submit(prioridad_al, list_procesos2, number_processes)
+    executor.submit(prioridad_ex, list_procesos_expropiativos, number_processes)
+
+    # fifo(list_procesos)
+    # sjf_al(list_procesos, number_processes)
+    # prioridad_al(list_procesos2, number_processes)
+    # prioridad_ex(list_procesos_expropiativos, number_processes)
 
 
 if __name__ == "__main__":
